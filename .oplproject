@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ASCII"?><project>
+	<version>1.0</version>
+	<configs>
+		<config category="opl" default="true" name="P1-C">
+			<ref name="C-level/MC-MochilaP1-C.mod" type="model">
+			</ref>
+			<ref name="C-level/MC-MochilaP1-C.dat" type="data">
+			</ref>
+		</config>
+		<config category="opl" default="false" name="P2-C">
+			<ref name="C-level/MC-MochilaP2-C.mod" type="model">
+			</ref>
+			<ref name="C-level/MC-MochilaP2-C.dat" type="data">
+			</ref>
+		</config>
+		<config category="opl" default="false" name="P1-B">
+			<ref name="B-level/MC-MochilaP1-B.mod" type="model">
+			</ref>
+			<ref name="B-level/MC-MochilaP1-B.dat" type="data">
+			</ref>
+		</config>
+		<config category="opl" default="false" name="P2-B">
+			<ref name="B-level/MC-MochilaP2-B.mod" type="model">
+			</ref>
+			<ref name="B-level/MC-MochilaP2-B.dat" type="data">
+			</ref>
+		</config>
+	</configs>
+	
+</project>
