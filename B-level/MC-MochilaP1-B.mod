@@ -1,26 +1,22 @@
 /*********************************************
  * OPL 12.6.0.0 Model
- * Author: Donzok
+ * Author: Alejandro Sánchez
  * Creation Date: 29/03/2016 at 16:35:21
  *********************************************/
 
  int MaxCapacity = ...;
- int NbElements = ...;
- range RgElements = 1..NbElements;
- {string} Clients = ...;
- int Elements[Clients][RgElements] = ...;
+ int NbClients = ...;
+ range RgClients = 1..NbClients;
+ range RgList = 0..1;
+ int Elements[RgClients][RgList] = ...;
  
- dvar boolean take[Clients][RgElements];
+ dvar boolean take[RgClients];
  
- maximize sum(c in Clients)sum(e in RgElements) take[c][e] * Elements[c][e];
+ maximize sum(c in RgClients) take[c] * Elements[c][1];
  
  subject to {
  	notExceedVolume:
- 		sum(c in Clients) sum(e in RgElements) take[c][e] * Elements[c][e] <= MaxCapacity;
- 		
- 	forall(c in Clients)
- 		allFromSameClient:
- 		sum(e in RgElements) take[c][e] == 0 || sum(e in RgElements) take[c][e] == NbElements;
+ 		sum(c in RgClients) take[c] * Elements[c][1] <= MaxCapacity;
  }
  
  main{
@@ -29,10 +25,8 @@
 	var mochilaModel = thisOplModel;
 	
 	var taken = mochilaModel.take;
-	
+
 	var Elements = mochilaModel.Elements;
-	
-	var clients = mochilaModel.Clients;
 	
 	var MaxCapacity = mochilaModel.MaxCapacity;
 	
@@ -40,20 +34,17 @@
 	
 	var curr = cplex.getObjValue();
 	
-	var nbTaken = 0
-	for (var c in mochilaModel.Clients) {
-		write("\nCliente " + c + ": ")
-		for(var el in mochilaModel.RgElements){
-			if(taken[c][el] == 1) {
-				if(Elements[c][el] != 0) {
-					nbTaken++;
-   				}					
-				write(Elements[c][el] + " ")		
-			}
+	var nbTaken = 0;
+	var totalItems = 0;
+	write("Clientes escogidos: ")
+	for (var c in mochilaModel.RgClients) {
+		totalItems += Elements[c][0]
+		if(taken[c] == 1) {		
+			nbTaken += Elements[c][0]
+			write(c + ", ")
 		}
 	}	
-	
-	writeln()
-	writeln("Capacidad ocupada: " + curr + "/" + MaxCapacity);
-	writeln("Elementos inclu�dos: " + nbTaken + "/" + Elements.size)
+
+	writeln("\nCapacidad ocupada: " + curr + "/" + MaxCapacity);
+	writeln("Elementos incluídos: " + nbTaken + "/" + totalItems)
 }

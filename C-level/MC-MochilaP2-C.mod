@@ -1,6 +1,6 @@
 /*********************************************
  * OPL 12.6.0.0 Model
- * Author: Donzok
+ * Author: Alejandro Sánchez
  * Creation Date: 29/03/2016 at 16:35:21
  *********************************************/
 
@@ -45,7 +45,7 @@
 	}
 	
 	writeln("Capacidad ocupada: " + storedCapacity + "/" + MaxCapacity);
-	writeln("Elementos inclu�dos: " + curr + "/" + Elements.size);
+	writeln("Elementos incluídos: " + curr + "/" + Elements.size);
 	
 	// writeln(Opl.dual(notExceedVolume));
 }
